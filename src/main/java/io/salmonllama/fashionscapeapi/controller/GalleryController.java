@@ -19,8 +19,10 @@ public class GalleryController {
     private GalleryRepository galleryRepository;
 
     @GetMapping()
-    public List<Gallery> getAllGalleries() {
-        return galleryRepository.findAll();
+    public ResponseEntity<List<Gallery>> getAllGalleries() {
+        List<Gallery> galleries = galleryRepository.findAll();
+
+        return ResponseEntity.ok(galleries);
     }
 
     @GetMapping("/{id}")
@@ -31,8 +33,10 @@ public class GalleryController {
     }
 
     @GetMapping("/server/{id}")
-    public List<Gallery> getGalleriesByServer(@PathVariable(value = "id") String serverId) {
-        return galleryRepository.findAllByServer(serverId);
+    public ResponseEntity<List<Gallery>> getGalleriesByServer(@PathVariable(value = "id") String serverId) {
+        List<Gallery> galleries = galleryRepository.findAllByServer(serverId);
+
+        return ResponseEntity.ok(galleries);
     }
 
     @GetMapping("/server/{serverId}/channel/{channelId}")
@@ -43,8 +47,10 @@ public class GalleryController {
     }
 
     @PostMapping()
-    public Gallery createGallery(@Valid @RequestBody Gallery gallery) {
-        return galleryRepository.save(gallery);
+    public ResponseEntity<Gallery> createGallery(@Valid @RequestBody Gallery gallery) {
+        Gallery createdGallery = galleryRepository.save(gallery);
+
+        return ResponseEntity.ok(createdGallery);
     }
 
     @PutMapping("/{id}")
@@ -63,7 +69,7 @@ public class GalleryController {
         return ResponseEntity.ok(updatedGallery);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteGallery(@PathVariable(value = "id") Long galleryId) throws ResourceNotFoundException {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> new ResourceNotFoundException("Gallery not found for id :: " + galleryId));
 

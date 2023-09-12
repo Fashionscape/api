@@ -20,8 +20,10 @@ public class OutfitController {
     private OutfitRepository outfitRepository;
 
     @GetMapping()
-    public List<Outfit> getAllOutfits() {
-        return outfitRepository.findAll();
+    public ResponseEntity<List<Outfit>> getAllOutfits() {
+        List<Outfit> outfits = outfitRepository.findAll();
+
+        return ResponseEntity.ok(outfits);
     }
 
     @GetMapping("/{id}")
@@ -39,8 +41,10 @@ public class OutfitController {
     }
 
     @PostMapping()
-    public Outfit createOutfit(@Valid @RequestBody Outfit outfit) {
-        return outfitRepository.save(outfit);
+    public ResponseEntity<Outfit> createOutfit(@Valid @RequestBody Outfit newOutfit) {
+        Outfit outfit = outfitRepository.save(newOutfit);
+
+        return ResponseEntity.ok(outfit);
     }
 
     @PutMapping("/{id}")
@@ -66,12 +70,12 @@ public class OutfitController {
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteOutfit(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, Boolean>> deleteOutfit(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
         outfitRepository.delete(outfit);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
-        return response;
+        return ResponseEntity.ok(response);
     }
 }
