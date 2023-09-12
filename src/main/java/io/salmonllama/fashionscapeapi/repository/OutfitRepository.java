@@ -9,5 +9,5 @@ import io.salmonllama.fashionscapeapi.model.Outfit;
 @Repository
 public interface OutfitRepository extends JpaRepository<Outfit, String> {
     @Query(value = "SELECT o FROM outfit o ORDER BY random() LIMIT 1", nativeQuery = true)
-    public Outfit findRandomOutfit();
+    Outfit findRandomOutfit();
 }
