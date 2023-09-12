@@ -63,7 +63,6 @@ public class GalleryController {
         return ResponseEntity.ok(updatedGallery);
     }
 
-    // TODO: Delete mapping
     @DeleteMapping()
     public ResponseEntity<Map<String, Boolean>> deleteGallery(@PathVariable(value = "id") Long galleryId) throws ResourceNotFoundException {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> new ResourceNotFoundException("Gallery not found for id :: " + galleryId));
