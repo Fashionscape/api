@@ -70,7 +70,7 @@ public class Outfit {
         return this;
     }
 
-    @Column(name = "discordName", nullable = false)
+    @Column(name = "discord_name", nullable = false)
     public String getDiscordName() {
         return discordName;
     }
@@ -124,7 +124,7 @@ public class Outfit {
         return this;
     }
 
-    @Column(name = "deleteHash", nullable = false)
+    @Column(name = "delete_hash", nullable = false)
     public String getDeleteHash() {
         return deleteHash;
     }
