@@ -14,29 +14,36 @@ import io.salmonllama.fashionscapeapi.repository.OutfitRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/outfit")
 public class OutfitController {
     @Autowired
     private OutfitRepository outfitRepository;
 
-    @GetMapping("/outfits")
+    @GetMapping()
     public List<Outfit> getAllOutfits() {
         return outfitRepository.findAll();
     }
 
-    @GetMapping("/outfits/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Outfit> getOutfitById(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
         return ResponseEntity.ok().body(outfit);
     }
 
-    @PostMapping("/outfits")
+    @GetMapping("/random")
+    public ResponseEntity<Outfit> getRandomOutfit() {
+        Outfit outfit = outfitRepository.findRandomOutfit();
+
+        return ResponseEntity.ok(outfit);
+    }
+
+    @PostMapping()
     public Outfit createOutfit(@Valid @RequestBody Outfit outfit) {
         return outfitRepository.save(outfit);
     }
 
-    @PutMapping("/outfits/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Outfit> updateOutfit(@PathVariable(value = "id") String outfitId, @Valid @RequestBody Outfit outfitDetails) throws ResourceNotFoundException  {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
@@ -58,7 +65,7 @@ public class OutfitController {
         return ResponseEntity.ok(updatedOutfit);
     }
 
-    @DeleteMapping("/outfits/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteOutfit(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
