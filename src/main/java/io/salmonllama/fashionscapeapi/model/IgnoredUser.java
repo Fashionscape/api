@@ -26,7 +26,7 @@ public class IgnoredUser {
         return this;
     }
 
-    @Column(name = "reason")
+    @Column(name = "reason", nullable = false)
     public String getReason() {
         return reason;
     }
@@ -35,7 +35,7 @@ public class IgnoredUser {
         return this;
     }
 
-    @Column(name = "added")
+    @Column(name = "added", nullable = false)
     public Timestamp getAdded() {
         return added;
     }
