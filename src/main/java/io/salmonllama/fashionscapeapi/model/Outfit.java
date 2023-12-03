@@ -1,13 +1,14 @@
 package io.salmonllama.fashionscapeapi.model;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "outfit")
 public class Outfit {
-    private String id;
+    private UUID id;
     private String link;
     private String submitter;
     private String tag;
@@ -25,11 +26,12 @@ public class Outfit {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false, unique = true)
-    public String getId() {
+    public UUID getId() {
         return id;
     }
-    public Outfit setId(String id) {
+    public Outfit setId(UUID id) {
         this.id = id;
         return this;
     }
