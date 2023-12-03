@@ -3,6 +3,7 @@ package io.salmonllama.fashionscapeapi.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class OutfitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Outfit> getOutfitById(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
+    public ResponseEntity<Outfit> getOutfitById(@PathVariable(value = "id") UUID outfitId) throws ResourceNotFoundException {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
         return ResponseEntity.ok().body(outfit);
@@ -48,7 +49,7 @@ public class OutfitController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Outfit> updateOutfit(@PathVariable(value = "id") String outfitId, @Valid @RequestBody Outfit outfitDetails) throws ResourceNotFoundException  {
+    public ResponseEntity<Outfit> updateOutfit(@PathVariable(value = "id") UUID outfitId, @Valid @RequestBody Outfit outfitDetails) throws ResourceNotFoundException  {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
         outfit
@@ -70,7 +71,7 @@ public class OutfitController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteOutfit(@PathVariable(value = "id") String outfitId) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, Boolean>> deleteOutfit(@PathVariable(value = "id") UUID outfitId) throws ResourceNotFoundException {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
 
         outfitRepository.delete(outfit);
