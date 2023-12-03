@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/gallery")
@@ -26,7 +27,7 @@ public class GalleryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Gallery> getGalleryById(@PathVariable(value = "id") Long galleryId) throws ResourceNotFoundException {
+    public ResponseEntity<Gallery> getGalleryById(@PathVariable(value = "id") UUID galleryId) throws ResourceNotFoundException {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> new ResourceNotFoundException("Gallery not found for id :: " + galleryId));
 
         return ResponseEntity.ok().body(gallery);
@@ -54,7 +55,7 @@ public class GalleryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Gallery> updateGallery(@PathVariable(value = "id") Long galleryId, @Valid @RequestBody Gallery galleryDetails) throws ResourceNotFoundException {
+    public ResponseEntity<Gallery> updateGallery(@PathVariable(value = "id") UUID galleryId, @Valid @RequestBody Gallery galleryDetails) throws ResourceNotFoundException {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> new ResourceNotFoundException("Gallery not found for id :: " + galleryId));
 
         gallery
@@ -70,7 +71,7 @@ public class GalleryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteGallery(@PathVariable(value = "id") Long galleryId) throws ResourceNotFoundException {
+    public ResponseEntity<Map<String, Boolean>> deleteGallery(@PathVariable(value = "id") UUID galleryId) throws ResourceNotFoundException {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> new ResourceNotFoundException("Gallery not found for id :: " + galleryId));
 
         galleryRepository.delete(gallery);
