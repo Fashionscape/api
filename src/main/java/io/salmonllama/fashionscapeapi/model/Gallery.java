@@ -2,10 +2,12 @@ package io.salmonllama.fashionscapeapi.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "gallery")
 public class Gallery {
-    private Long id;
+    private UUID id;
     private String serverId;
     private String channelId;
     private String tag;
@@ -18,10 +20,10 @@ public class Gallery {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
-    public Gallery setId(Long id) {
+    public Gallery setId(UUID id) {
         this.id = id;
         return this;
     }

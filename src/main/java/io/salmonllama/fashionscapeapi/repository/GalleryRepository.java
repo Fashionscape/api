@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface GalleryRepository extends JpaRepository<Gallery, Long> {
+public interface GalleryRepository extends JpaRepository<Gallery, UUID> {
 
     @Query(value = "SELECT g FROM gallery g WHERE g.server_id = ?1", nativeQuery = true)
     List<Gallery> findAllByServer(String serverId);
