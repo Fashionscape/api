@@ -1,13 +1,14 @@
 package io.salmonllama.fashionscapeapi.model;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "contest_gallery")
 public class ContestGallery {
-    private int id;
+    private UUID id;
     private String contestName;
     private Timestamp created;
     private Timestamp contestClose;
@@ -17,10 +18,10 @@ public class ContestGallery {
     public ContestGallery() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
     @Column(name = "id")
-    public int getId() { return id; }
-    public ContestGallery setId(int id) {
+    public UUID getId() { return id; }
+    public ContestGallery setId(UUID id) {
         this.id = id;
         return this;
     }
