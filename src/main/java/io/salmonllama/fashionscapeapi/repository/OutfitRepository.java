@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import io.salmonllama.fashionscapeapi.model.Outfit;
 
+import java.util.List;
+
 @Repository
 public interface OutfitRepository extends JpaRepository<Outfit, String> {
     @Query(value = "SELECT o FROM outfit o ORDER BY random() LIMIT 1", nativeQuery = true)
