@@ -1,5 +1,6 @@
 package io.salmonllama.fashionscapeapi.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,9 @@ public class OutfitController {
 
     @PostMapping()
     public ResponseEntity<Outfit> createOutfit(@Valid @RequestBody Outfit newOutfit) {
+        long now = System.currentTimeMillis();
+        newOutfit.setCreated(new Timestamp(now));
+        newOutfit.setUpdated(new Timestamp(now));
         Outfit outfit = outfitRepository.save(newOutfit);
 
         return ResponseEntity.ok(outfit);
@@ -51,6 +55,7 @@ public class OutfitController {
     @PutMapping("/{id}")
     public ResponseEntity<Outfit> updateOutfit(@PathVariable(value = "id") UUID outfitId, @Valid @RequestBody Outfit outfitDetails) throws ResourceNotFoundException  {
         Outfit outfit = outfitRepository.findById(outfitId).orElseThrow(() -> new ResourceNotFoundException("Outfit not found for id :: " + outfitId));
+        long now = System.currentTimeMillis();
 
         outfit
                 .setLink(outfitDetails.getLink())
@@ -58,7 +63,7 @@ public class OutfitController {
                 .setTag(outfitDetails.getTag())
                 .setMeta(outfitDetails.getMeta())
                 .setDiscordName(outfitDetails.getDiscordName())
-                .setUpdated(outfitDetails.getUpdated())
+                .setUpdated(new Timestamp(now))
                 .setDeleted(outfitDetails.getDeleted())
                 .setFeatured(outfitDetails.getFeatured())
                 .setDisplayCount(outfitDetails.getDisplayCount())
