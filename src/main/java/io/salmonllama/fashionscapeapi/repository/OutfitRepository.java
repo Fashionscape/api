@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface OutfitRepository extends JpaRepository<Outfit, UUID> {
-    @Query(value = "SELECT o FROM outfit o ORDER BY random() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM outfit ORDER BY random() LIMIT 1", nativeQuery = true)
     Outfit findRandomOutfit();
 
     @Query(value = "SELECT o FROM outfit o WHERE o.submitter = ?1", nativeQuery = true)
