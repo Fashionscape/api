@@ -5,11 +5,11 @@ services:
     image: salmonllama/fashionscape-api:latest
     restart: always
     environment:
-      DB_URI:
-      DB_PORT:
-      DB_USER:
-      DB_PASS:
-      DB_DATA:
+      PG_URI:
+      PG_PORT:
+      PG_USER:
+      PG_PASS:
+      PG_DB:
     ports:
       - "8888:8888"
     container_name: fashionscape-api
